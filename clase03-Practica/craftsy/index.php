@@ -10,6 +10,23 @@ require ("head.php");
 require ("header.php");
 
 require ("productos.php");
+
+function oferta($oneProduct) {
+  if ($oneProduct["estaEnOferta"]) {
+    return "<br><h3> OFERTA!! $" . $oneProduct["price"]*0.8;
+  }else {
+      return "<br><h3> $" . $oneProduct["price"];
+  }
+}
+
+function longDescription($oneProduct) {
+  if (isset($oneProduct["longDescription"])) {
+    return $oneProduct["longDescription"] . oferta($oneProduct);
+  } else {
+    return $oneProduct["descripcion"] . oferta($oneProduct);
+  }
+}
+
  ?>
 
 
@@ -45,7 +62,7 @@ require ("productos.php");
 
 						<img class="main-photo" src="img/<?= $oneProduct["imagen"]?>" alt="<?= $oneProduct["titulo"] ?>">
 						<h2 class="name"><?= $oneProduct["titulo"] ?></h2>
-						<p><?=$oneProduct["descripcion"]?></p>
+						<p><?php echo longDescription($oneProduct)?></p>
 				  	<a class="more" href="#">ver más</a>
 
 					</article>
