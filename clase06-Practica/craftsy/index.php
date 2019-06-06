@@ -40,7 +40,7 @@ function longDescription($oneProduct) {
 	</head>
 	<body>
 		<div class="container"> <!-- Contenedor ppal -->
-		<?php require ("header.php");  ?>	
+			<?php require ("header.php"); ?>
 			<main> <!-- Cuerpo principal del sitio -->
 				<section class="product-container"><!-- Contenedor de todos los productos -->
 	<?php foreach ($products as $oneProduct):?>
