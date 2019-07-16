@@ -8,12 +8,11 @@ $stmt=$conection->prepare("SELECT id,name FROM genres");
   $generos=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if ($_POST) {
-  try{
-    $conection->PDO::startTransaction();
 
-    $stmt=$conection->exec("INSERT INTO movies VALUES (null,null,null,:titulo,:rating,:premios,:fecha_estreno,:duracion,:genero)");
-    $stmt=$conection->exec("INSERT INTO movies VALUES (null,null,null,:titulo,:rating,:premios,:fecha_estreno,:duracion,:genero)");
-    $stmt=$conection->exec("INSERT INTO movies VALUES (null,null,null,:titulo,:rating,:premios,:fecha_estreno,:duracion,:genero)");
+  try{
+
+	require_once ("guardar.php");
+
   }catch (\Exception $error){
     $stmt->rollback();
   }
