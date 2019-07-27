@@ -13,16 +13,29 @@ private $mail;
 private $contrasenia;
 private $celular;
 private $habilidades;
+private $id;
 
-public function __construct(String $nombre, String $mail,String $contrasenia, Celular $celular){
+public function __construct(String $nombre, String $mail,String $contrasenia, Celular $celular, $habilidades = null, $id = 0){
 $this->setnombre($nombre);
 $this->setMail( $mail);
 $this->setContrasenia ( $contrasenia);
 $this->setCelular($celular);
-if ($habilidad) {
+if ($habilidades) {
 $this->setHabilidades($habilidad);
 }
+if ($id) {
+$this->setId($id);
 }
+}
+
+public function setId(String $id){
+  $this->id=$id;
+}
+
+public function getId(){
+return $this->id;
+}
+
 
 public function setNombre(String $nombre){
   $this->nombre=$nombre;
@@ -109,24 +122,40 @@ public function getHabilidades() {
 }
 
 
+public function sabeHacer(string $habilidad, int $puntaje){
+     foreach ($this->getHabilidades() as $nombre => $unaHabilidad) {
+       if( $habilidad == $unaHabilidad->getNombre() && $puntaje<$unaHabilidad->getExpertise()){
+         echo true;
+       } else {
+         echo false;
+       }
+     }return;
+   }
 
 
 
 
+/*Agregarle al usuario el método guardar. Para esto:
+a. Queda a criterio del alumno en qué soporte almacenar la información del
+Usuario
+b. Si el usuario no tiene id, esto significa que el usuario es nuevo y debería
+hacerse una inserción
+c. Si el usuario ya tiene id asignado debe realizarse un update
+26. Generar una función que retorne todos los usuarios almacenados. Esta función no
+debe retornar arrays sino objetos Usuario. Tener cuidado con que estos objetos
+usuarios tengan su id correspondiente y no volver a encriptar la contraseña
+27. Agregarle al usuario el método eliminar que lo elimine de la base de datos en caso
+de ya tener id asignado.*/
 
-/*23. Agregar en la clase Usuario el método sabeHacer la misma recibe un string y un
-puntaje. La función devuelve verdadero únicamente si el string recibido es el nombre
-de una de las habilidades del usuario y si el puntaje es menor al expertise del
-usuario en esa habilidad. En caso contrario, retorna falso.*/
-public function sabeHacer(String $habilidad, Int $puntaje){
-  $habilidadUsuario=$this->habilidades->getNombre();
-  $puntajeUsuario=$this->habilidades->getExpertise();
-  if ($habilidad ==  $habilidadUsuario && $puntaje < $puntajeUsuario) {
-    true;
-  }else{
-    false;
-  }
+public function guardar(){
+  $todosLosUsuarios=json_decode(file_get_contents('data/users.json'), true);
+  if ($this->getId()==0) {
+  $this->getId()+1;
+  $listaUsuarios[]=$this;
+  file_put_contents('data/users.json', json_encode($listaUsuarios, JSON_PRETTY_PRINT));
+}else{
+  $listaUsuarios[]=$this;
+  file_put_contents('data/users.json', json_encode($listaUsuarios, JSON_PRETTY_PRINT));
 }
-
-
+}
 }

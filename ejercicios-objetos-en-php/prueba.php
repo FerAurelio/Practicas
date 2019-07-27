@@ -69,16 +69,25 @@ echo "<br>";
 
 <?php
 $unUsuarioarray=$unUsuario->getHabilidades();
-var_dump($unUsuarioarray);
-
-
-
 
 foreach($unUsuarioarray as $unaHabilidad){
- 	echo "tiene la habilidad de " . $unaHabilidad ["nombre"];
+ 	echo "tiene la habilidad de " . $unaHabilidad->getNombre() . "<br>";
  		}
 
 
+
+echo "<br>";
+echo "<br>";
+echo "<br>";
+
+
+
+echo $unUsuario->sabeHacer("dibujar",3);
+echo "<br>";
+echo "<br>";
+echo $unUsuario->sabeHacer("bailar",4);
+
+$unUsuario->guardar();
 
 echo "<br>";
 echo "<br>";
